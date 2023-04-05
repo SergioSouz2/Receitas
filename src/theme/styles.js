@@ -12,6 +12,8 @@ export const theme = {
     Black_01: '#0e0e0e',
     
     pink: '#FF4141',
+
+    gradientFood: ['transparent', 'rgba(0, 0, 0, 0.70)','rgba(0, 0, 0, 0.95)']
     
 }
 

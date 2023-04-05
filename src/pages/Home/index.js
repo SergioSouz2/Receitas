@@ -1,10 +1,21 @@
-import react, { useState } from "react";
-
+import react, { useState, useEffect } from "react";
 import { Ionicons } from '@expo/vector-icons'
 
-import {View, Text, SafeAreaView, TextInput, TouchableOpacity,TouchableWithoutFeedback,Keyboard } from 'react-native'
+import {
+    View, 
+    Text, 
+    SafeAreaView, 
+    TextInput, 
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    Keyboard ,
+    FlatList,
+} from 'react-native'
 
 import { Logo } from '../../components/Logo'
+import { Foodlist } from '../../components/FoodList'
+
+import { api } from '../../services/api'
 
 import { styles } from  './styles'
 import { theme } from "../../theme/styles";
@@ -14,12 +25,26 @@ import { theme } from "../../theme/styles";
 export function Home (){
 
     const [ inputValue, setInputValue] = useState('')
+    const [ foods, setFoods] = useState([])
+
+    useEffect(() => {
+        async function fetchApi(){
+            const response = await api.get("/foods")
+
+            setFoods(response.data)
+        }
+        
+
+        fetchApi();
+
+    },[])
 
     function handleSearch(){
         console.log('vc digitou')
         console.log(inputValue)
 
     }
+
 
 
     return (
@@ -41,6 +66,15 @@ export function Home (){
                         <Ionicons name="search" size={28} color={theme.green_01}/>
                     </TouchableOpacity>
                 </View>
+
+                <FlatList 
+                    data={foods}
+                    keyExtractor={(item)=> String(item.id)}
+                    renderItem={({item}) => <Foodlist data={item}/>}
+                    showsVerticalScrollIndicator= {false}
+                        
+                />
+
             </SafeAreaView>
         </TouchableWithoutFeedback>
 
