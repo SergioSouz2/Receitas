@@ -1,5 +1,7 @@
-import react, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Ionicons } from '@expo/vector-icons'
+import {useNavigation} from '@react-navigation/native'
+import {Text as MotiText } from 'moti'
 
 import {
     View, 
@@ -23,6 +25,7 @@ import { theme } from "../../theme/styles";
 
 
 export function Home (){
+    const navigation = useNavigation()
 
     const [ inputValue, setInputValue] = useState('')
     const [ foods, setFoods] = useState([])
@@ -40,9 +43,11 @@ export function Home (){
     },[])
 
     function handleSearch(){
-        console.log('vc digitou')
-        console.log(inputValue)
+      if(!inputValue ) return;
 
+      let input = inputValue;
+      setInputValue('')
+      navigation.navigate("Search", { name:input } )
     }
 
 
@@ -51,8 +56,43 @@ export function Home (){
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <SafeAreaView style={styles.container}>
                 <Logo/>
-                <Text style={styles.title}>Encontre a receita</Text>
-                <Text style={styles.title}>que combina com você</Text>
+                <MotiText 
+                    style={styles.title}
+                    from={{
+                        opacity:0,
+                        translateY: 15,
+                    }}
+                    animate={{
+                        opacity:1,
+                        translateY: 0,
+                    }}
+                    transition={{
+                        delay:150,
+                        type:'timing',
+                        duration: 650,
+                    }}
+                >
+                    Encontre a receita
+                </MotiText>
+
+                <MotiText 
+                    style={styles.title}
+                    from={{
+                        opacity:0,
+                        translateY: 15,
+                    }}
+                    animate={{
+                        opacity:1,
+                        translateY: 0,
+                    }}
+                    transition={{
+                        delay:250,
+                        type:'timing',
+                        duration: 850,
+                    }}
+                >
+                    que combina com você
+                </MotiText>
 
                 <View style={styles.form}>
                     <TextInput 

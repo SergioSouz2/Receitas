@@ -7,6 +7,7 @@ export const theme = {
     White_01: '#FFF',
     White_02: '#F3F9FF',
     White_03: '#ECECEC',
+    White_04: '#FAFAFA',
     
     Black: '#000000',
     Black_01: '#0e0e0e',
